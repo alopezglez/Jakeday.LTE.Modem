@@ -1,0 +1,19 @@
+# Con este script se activará el modem LTE en los Surface Pro 2017
+#
+# Hay que cambiar 'wwan0' por el nombre de nuestro modem LTE, para ello usamos 'ip a' y # # #buscamos por algún dispositivo con esa nomenclatura o bien uno con el prefijo 'wwp' y a #continuacion cambiamos la direccion fisica del puerto usb con el comando 'ltusb -t'.
+
+
+
+
+
+#!/bin/bash
+
+# Fix the modem
+
+echo 16383 | sudo tee /sys/bus/usb/devices/2-2/2-2:1.0/net/wwan0/cdc_ncm/rx_max
+echo 16383 | sudo tee /sys/bus/usb/devices/2-2/2-2:1.0/net/wwan0/cdc_ncm/tx_max
+
+echo 16384 | sudo tee /sys/bus/usb/devices/2-2/2-2:1.0/net/wwan0/cdc_ncm/rx_max
+echo 16384 | sudo tee /sys/bus/usb/devices/2-2/2-2:1.0/net/wwan0/cdc_ncm/tx_max
+
+systemctl restart ModemManager 
